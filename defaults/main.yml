@@ -1,0 +1,21 @@
+---
+# defaults file for ansible-role-rds
+rds_instance_name: ""
+rds_region: ""
+rds_size: ""
+rds_instance_type: ""
+rds_db_engine: ""
+rds_engine_version: ""
+rds_subnet: {}
+rds_parameter_group: ""
+rds_port: ""
+rds_db_name: ""
+rds_username: ""
+rds_password: ""
+rds_security_groups: []
+rds_iops: ""
+rds_maint_window: ""
+rds_backup_window: ""
+rds_backup_retention: ""
+rds_zone: []
+rds_tags: {}

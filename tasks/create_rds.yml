@@ -1,0 +1,31 @@
+---
+
+- name: Create multi-zone RDS in a VPC
+  rds:
+    command: create
+    instance_name: "{{ rds_instance_name }}"
+    region: "{{ rds_region }}"
+    size: "{{ rds_size }}"
+    instance_type: "{{ rds_instance_type }}"
+    db_engine: "{{ rds_db_engine }}"
+    engine_version: "{{ rds_engine_version | default('omit') }}"
+    subnet: "{{ rds_subnet }}"
+    parameter_group: "{{ rds_parameter_group | default('omit') }}"
+    multi_zone: yes
+    port: "{{ rds_port }}"
+    db_name: "{{ rds_db_name }}"
+    username: "{{ rds_username }}"
+    password: "{{ rds_password }}"
+    vpc_security_groups: "{{ rds_security_groups }}"
+    iops: "{{ rds_iops }}"
+    maint_window: "{{ rds_maint_window }}"
+    backup_window: "{{ rds_backup_window }}"
+    backup_retention: "{{ rds_backup_retention }}"
+    zone: "{{ rds_zone }}"
+    wait: yes
+    tags: "{{ rds_tags }}"
+  register: launched_rds
+  tags: launch_rds
+
+- debug: var=item
+  with_items: launched_rds.instances
