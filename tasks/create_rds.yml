@@ -23,6 +23,7 @@
     backup_retention: "{{ rds_backup_retention }}"
     zone: "{{ rds_zone }}"
     wait: yes
+    wait_timeout: 1800
     tags: "{{ rds_tags }}"
   register: launched_rds
   tags: launch_rds
