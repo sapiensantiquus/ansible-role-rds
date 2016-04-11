@@ -1,4 +1,13 @@
 ---
+- name: Terminate current instances.
+  rds:
+    command: delete
+    region: "{{ rds_region }}"
+    instance_name: "{{ rds_instance_name }}"
+    snapshot: "{{ rds_instance_name }}-snapshot"
+    tags: "{{ rds_tags }}"
+  when: relaunch
+  tags: terminate
 
 - name: Create multi-zone RDS in a VPC
   rds:
@@ -29,4 +38,4 @@
   tags: launch_rds
 
 - debug: var=item
-  with_items: launched_rds.instances
+  with_items: launched_rds

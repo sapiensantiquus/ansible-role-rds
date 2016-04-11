@@ -1,0 +1,25 @@
+---
+
+- name: Restore AWS RDS instance from a snapshot
+  rds:
+    command: restore
+    snapshot: "{{ rds_instance_name }}-snapshot"
+    instance_name: "{{ rds_instance_name }}"
+    region: "{{ rds_region }}"
+    instance_type: "{{ rds_instance_type }}"
+    multi_zone: yes
+    vpc_security_groups: "{{ rds_security_groups }}"
+    iops: "{{ rds_iops }}"
+    maint_window: "{{ rds_maint_window }}"
+    backup_window: "{{ rds_backup_window }}"
+    backup_retention: "{{ rds_backup_retention }}"
+    zone: "{{ rds_zone }}"
+    subnet: "{{ rds_subnet }}"
+    wait: yes
+    wait_timeout: 1800
+    tags: "{{ rds_tags }}" 
+  register: launched_rds
+  tags: restore_rds
+
+- debug:
+    msg: "The new db endpoint is {{ launched_rds.instance.endpoint }}"

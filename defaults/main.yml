@@ -1,5 +1,6 @@
 ---
 # defaults file for ansible-role-rds
+relaunch: False
 rds_instance_name: ""
 rds_region: ""
 rds_size: ""
