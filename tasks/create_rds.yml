@@ -38,4 +38,4 @@
   tags: launch_rds
 
 - debug: var=item
-  with_items: launched_rds
+  with_items: launched_rds.instance
