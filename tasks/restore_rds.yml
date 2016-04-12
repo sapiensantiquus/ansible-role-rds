@@ -23,3 +23,4 @@
 
 - debug:
     msg: "The new db endpoint is {{ launched_rds.instance.endpoint }}"
+  tags: restore_rds
