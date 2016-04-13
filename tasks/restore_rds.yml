@@ -1,4 +1,12 @@
 ---
+- name: Terminate current instances.
+  rds:
+    command: delete
+    region: "{{ rds_region }}"
+    instance_name: "{{ rds_instance_name }}"
+    snapshot: "{{ rds_instance_name }}"
+  when: relaunch
+  tags: terminate
 
 - name: Restore AWS RDS instance from a snapshot
   rds:
@@ -8,7 +16,6 @@
     region: "{{ rds_region }}"
     instance_type: "{{ rds_instance_type }}"
     multi_zone: yes
-    vpc_security_groups: "{{ rds_security_groups }}"
     iops: "{{ rds_iops }}"
     maint_window: "{{ rds_maint_window }}"
     backup_window: "{{ rds_backup_window }}"
@@ -21,6 +28,13 @@
   register: launched_rds
   tags: restore_rds
   when: relaunch
+
+- name: Modify restored AWS RDS instance to use correct security group
+  rds:
+    command: modify
+    instance_name: "{{ rds_instance_name }}"
+    region: "{{ rds_region }}"
+    vpc_security_groups: "{{ rds_security_groups }}"
 
 - debug:
     msg: "The new db endpoint is {{ launched_rds.instance.endpoint }}"
