@@ -4,14 +4,14 @@
     command: delete
     region: "{{ rds_region }}"
     instance_name: "{{ rds_instance_name }}"
-    snapshot: "{{ rds_instance_name }}"
+    snapshot: "{{ rds_snapshot_name }}"
   when: relaunch
   tags: terminate
 
 - name: Restore AWS RDS instance from a snapshot
   rds:
     command: restore
-    snapshot: "{{ rds_instance_name }}"
+    snapshot: "{{ rds_snapshot_name }}"
     instance_name: "{{ rds_instance_name }}"
     region: "{{ rds_region }}"
     instance_type: "{{ rds_instance_type }}"
