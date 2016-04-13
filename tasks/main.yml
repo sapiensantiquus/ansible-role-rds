@@ -1,6 +1,6 @@
 ---
 # tasks file for ansible-role-rds
 - include: create_rds.yml
-  tags: ['launch_rds']
+
 - include: restore_rds.yml
-  tags: ['restore_rds']
+  when: relaunch

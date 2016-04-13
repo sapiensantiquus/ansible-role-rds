@@ -3,7 +3,7 @@
 - name: Restore AWS RDS instance from a snapshot
   rds:
     command: restore
-    snapshot: "{{ rds_instance_name }}-snapshot"
+    snapshot: "{{ rds_instance_name }}"
     instance_name: "{{ rds_instance_name }}"
     region: "{{ rds_region }}"
     instance_type: "{{ rds_instance_type }}"
@@ -20,7 +20,9 @@
     tags: "{{ rds_tags }}" 
   register: launched_rds
   tags: restore_rds
+  when: relaunch
 
 - debug:
     msg: "The new db endpoint is {{ launched_rds.instance.endpoint }}"
   tags: restore_rds
+  when: relaunch

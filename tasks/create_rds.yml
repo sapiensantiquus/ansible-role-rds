@@ -4,7 +4,7 @@
     command: delete
     region: "{{ rds_region }}"
     instance_name: "{{ rds_instance_name }}"
-    snapshot: "{{ rds_instance_name }}-snapshot"
+    snapshot: "{{ rds_instance_name }}"
     tags: "{{ rds_tags }}"
   when: relaunch
   tags: terminate
