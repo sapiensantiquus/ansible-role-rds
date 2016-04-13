@@ -1,13 +1,4 @@
 ---
-- name: Get AWS RDS instance facts
-  rds:
-    command: facts
-    instance_name: "{{ rds_instance_name }}"
-    register: rds_facts
-
-- debug:
-    msg: "{{ rds_facts.stdout }}"
-
 - name: Terminate current instances.
   rds:
     command: delete
