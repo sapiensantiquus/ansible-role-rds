@@ -1,4 +1,13 @@
 ---
+- name: Get AWS RDS instance facts
+  rds:
+    command: facts
+    instance_name: "{{ rds_instance_name }}"
+    register: rds_facts
+
+- debug:
+    msg: "{{ rds_facts.stdout }}"
+
 - name: Terminate current instances.
   rds:
     command: delete
@@ -35,6 +44,8 @@
     instance_name: "{{ rds_instance_name }}"
     region: "{{ rds_region }}"
     vpc_security_groups: "{{ rds_security_groups }}"
+  tags: restore_rds
+  when: relaunch
 
 - debug:
     msg: "The new db endpoint is {{ launched_rds.instance.endpoint }}"
