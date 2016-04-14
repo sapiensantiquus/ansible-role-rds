@@ -1,17 +1,23 @@
 ---
+- name: Set snapshot name as a fact
+  set_fact:
+    current_snapshot_name: "{{ rds_snapshot_name }}"
+
 - name: Terminate current instances.
   rds:
     command: delete
     region: "{{ rds_region }}"
     instance_name: "{{ rds_instance_name }}"
-    snapshot: "{{ rds_instance_name }}"
+    snapshot: "{{ current_snapshot_name }}"
+    wait: yes
+    wait_timeout: 1800
   when: relaunch
   tags: terminate
 
 - name: Restore AWS RDS instance from a snapshot
   rds:
     command: restore
-    snapshot: "{{ rds_instance_name }}"
+    snapshot: "{{ current_snapshot_name }}"
     instance_name: "{{ rds_instance_name }}"
     region: "{{ rds_region }}"
     instance_type: "{{ rds_instance_type }}"
@@ -35,6 +41,10 @@
     instance_name: "{{ rds_instance_name }}"
     region: "{{ rds_region }}"
     vpc_security_groups: "{{ rds_security_groups }}"
+    wait: yes
+    wait_timeout: 1800
+  tags: restore_rds
+  when: relaunch
 
 - debug:
     msg: "The new db endpoint is {{ launched_rds.instance.endpoint }}"
