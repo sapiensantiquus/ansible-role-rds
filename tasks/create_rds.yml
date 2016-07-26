@@ -7,9 +7,9 @@
     size: "{{ rds_size }}"
     instance_type: "{{ rds_instance_type }}"
     db_engine: "{{ rds_db_engine }}"
-    engine_version: "{{ rds_engine_version | default('omit') }}"
+    engine_version: "{{ rds_engine_version|default(omit) }}"
     subnet: "{{ rds_subnet }}"
-    parameter_group: "{{ rds_parameter_group | default('omit') }}"
+    parameter_group: "{{ rds_parameter_group|default(omit) }}"
     multi_zone: yes
     port: "{{ rds_port }}"
     db_name: "{{ rds_db_name }}"
@@ -21,6 +21,7 @@
     backup_window: "{{ rds_backup_window }}"
     backup_retention: "{{ rds_backup_retention }}"
     publicly_accessible: "{{ rds_publicly_accessible }}"
+    character_set_name: "{{ rds_character_set_name|default(omit) }}"
     zone: "{{ rds_zone }}"
     wait: yes
     wait_timeout: 1800
