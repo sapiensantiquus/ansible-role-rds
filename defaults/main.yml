@@ -23,3 +23,4 @@ rds_backup_window: ""
 rds_backup_retention: ""
 rds_zone: ""
 rds_tags: {}
+rds_multi_zone: yes
